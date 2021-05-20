@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -J trimmomatic_se
 #SBATCH -p normal
-#SBATCH -t 6:00:00
+#SBATCH -t 4:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=4
 #SBATCH --mail-user=henna.urhonen@tuni.fi
@@ -12,6 +12,7 @@
 start=`date +%s`
 module load compbio/fastqc/0.11.7
 
+# INPUT ARGUMENTS:
 datafolder=$1
 trimmed_folder=$2
 
@@ -26,11 +27,12 @@ do
 		-threads ${SLURM_CPUS_PER_TASK} \
 		$i $trimmed_folder/${samplename}_trimmed.fastq.gz \
 		ILLUMINACLIP:/bmt-data/genomics/apps/Trimmomatic-0.36/adapters/TruSeq3-SE.fa:2:30:10 \
+		MINLEN:30 \
 		2> $trimmed_folder/trim_summary/${samplename}_trim_summary.log;
 done
 
-mkdir -p $trimmed_folder/fastqc_output
-fastqc -t $SLURM_CPUS_PER_TASK -o $trimmed_folder/fastqc_output $trimmed_folder/*trimmed.fastq.gz
+mkdir -p $trimmed_folder/fastqc_out
+fastqc -t $SLURM_CPUS_PER_TASK -o $trimmed_folder/fastqc_out $trimmed_folder/*trimmed.fastq.gz
 
 end=`date +%s`
 runtime=$((end-start))
