@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -J trimmomatic_se
 #SBATCH -p normal
-#SBATCH -t 4:00:00
+#SBATCH -t 3:30:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=4
 #SBATCH --mail-user=henna.urhonen@tuni.fi
@@ -26,7 +26,7 @@ do
 	java -jar /bmt-data/genomics/apps/Trimmomatic-0.36/trimmomatic-0.36.jar SE \
 		-threads ${SLURM_CPUS_PER_TASK} \
 		$i $trimmed_folder/${samplename}_trimmed.fastq.gz \
-		ILLUMINACLIP:/bmt-data/genomics/apps/Trimmomatic-0.36/adapters/TruSeq3-SE.fa:2:30:10 \
+		ILLUMINACLIP:/home/hu425279/PN0079_DVL3_rna-seq/data/illumina_pcr_primers+truseq_adapters.fa:2:30:10 \
 		MINLEN:30 \
 		2> $trimmed_folder/trim_summary/${samplename}_trim_summary.log;
 done
