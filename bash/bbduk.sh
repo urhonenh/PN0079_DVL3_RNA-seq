@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH -J bbduk
 #SBATCH -p normal
-#SBATCH -t 3:30:00
+#SBATCH -t 3:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=4
 #SBATCH --mail-user=henna.urhonen@tuni.fi
 #SBATCH --mail-type=FAIL
-#SBATCH --mem-per-cpu=1500M
+#SBATCH --mem-per-cpu=1000M
 #SBATCH --output=slurm-%j_bbduk.out
 
 start=`date +%s`
