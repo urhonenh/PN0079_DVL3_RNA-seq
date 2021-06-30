@@ -64,7 +64,7 @@ if(all(rownames(coldata) != colnames(mat)) || !identical(rownames(coldata), coln
 
 dds <- DESeqDataSetFromMatrix(countData = mat,
                               colData = coldata,
-                              design = ~ Experiment_type + Radiation)  # Simple design for object construction. Remember to replace!
+                              design = ~ Experiment_type + Radiation + Experiment_type:Radiation)
 
 # ddsMat_LRT <- DESeq(dds, test="LRT", reduced =~ Time_point + Radiation + Experiment_type,
 #                     full =~ Time_point + Radiation + Experiment_type + Radiation:Experiment_type)
@@ -81,7 +81,8 @@ write.table(model.matrix(object = design(dds), data = data.frame(colData(dds))),
 
 # Run DESeq2.
 # NOTE! No pre-filtering of low count genes before DESeq2 for this QuantSeq dataset because lower counts are common. 
-dds <- DESeq(dds)
+dds <- DESeq(dds)   # Uses default Wald test.
+# dds <- DESeq(dds, test="LRT", reduced = ~ Experiment_type + Radiation)  # Likelihood ratio test.
 
 saveRDS(dds, paste0(outdir, "dds_object.rds"))
 
@@ -136,8 +137,8 @@ for (j in 1:nrow(resnames)) {
     res <- fixanno(res)
   }
   
-  # Possibility to check that the Ensembl gene ID -> HGNC symbol was OK.
-  print(paste0(res[1,"ensembl_gene_id"], "=", res[1,"mgi_symbol"]))
+  # Possibility to check that the Ensembl gene ID -> MGI symbol was OK.
+  print(paste0(res[1,"ensembl_gene_id"], "=", res[1,"mgi_symbol"]))  # Note: mgi_symbol!
   
   write.table(res, paste0(outdir, comparison, "_padj_", padj_threshold, 
                           "_log2fc_", log2fc_threshold, ".txt"), sep="\t", row.names=FALSE, quote=FALSE)
