@@ -1,0 +1,7 @@
+x
+1	Intercept
+2	group_Cell_line_2x5_vs_Cell_line_0
+3	group_Cell_line_8_vs_Cell_line_0
+4	group_Graft_0_vs_Cell_line_0
+5	group_Graft_2x5_vs_Cell_line_0
+6	group_Graft_8_vs_Cell_line_0
