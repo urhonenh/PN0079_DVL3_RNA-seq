@@ -1,0 +1,7 @@
+Cell_line_2x5	Cell_line_0
+Cell_line_8	Cell_line_0
+Graft_0	Cell_line_0
+Graft_2x5	Cell_line_2x5
+Graft_8	Cell_line_8
+Graft_8	Graft_0
+Graft_2x5	Graft_0
