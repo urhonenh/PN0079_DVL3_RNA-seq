@@ -9,7 +9,7 @@ suppressPackageStartupMessages({
   library(ggplot2)
 })
 
-alignmentdir = "/bmt-data/genomics/projects/dvl3_mouse_rna-seq/03_alignments/trimmed"
+alignmentdir = "/bmt-data/genomics/projects/dvl3_mouse_rna-seq/03_alignments/trimmed_bbduk"
 outdir = "/bmt-data/genomics/projects/dvl3_mouse_rna-seq/06_visualization/"
 gitrepo = "/home/hu425279/PN0079_DVL3_rna-seq/"
 
@@ -43,7 +43,7 @@ if(all(ids %in% samplenames)==FALSE){
 for (i in 1:length(ids)) {
   sample <- ids[i]
   counts <- count_files[[sample]]
-  counts <- counts[,1] # Keep only the column with unstranded counts. Check the column!
+  counts <- counts[,2] # Keep only the column with forward-stranded counts. Check the column!
   mat[,i] <- counts
 }
 
