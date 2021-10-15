@@ -116,11 +116,14 @@ percentVar <- round(100 * attr(pcaData, "percentVar"))
 options(repr.plot.width = 14, repr.plot.height = 8)
 pcaplot <- ggplot(pcaData, aes(PC1, PC2, shape=Radiation, color=Experiment_type)) +
   geom_point(size=4) +
+  ggtitle("Visualization of two first principal components of the DVL3 dataset") +
   xlab(paste0("PC1: ",percentVar[1],"% variance")) +
-  ylab(paste0("PC2: ",percentVar[2],"% variance")) # +coord_fixed()
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) +
+  labs(shape = "Radiation (Gy)", colour = "Experiment type")
+# +coord_fixed()
 
-pcaplot <- pcaplot + geom_text_repel(aes(label=rownames(colData(dds))), colour = "black", size=2)
+# pcaplot <- pcaplot + geom_text_repel(aes(label=rownames(colData(dds))), colour = "black", size=2)
 #pcaplot + geom_text_repel(aes(label=Radiation), colour = "black", size=3)
-pdf(paste0(outdir, "pca_radiation_and_experiment_type.pdf"))
+pdf(paste0(outdir, "pca_radiation_and_experiment_type_polished1.pdf"))
 pcaplot
 dev.off()
